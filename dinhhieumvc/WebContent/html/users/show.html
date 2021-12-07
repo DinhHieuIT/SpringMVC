@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="~{templates/layout :: layout(~{::title}, ~{::body}, ~{})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="#{user.show.title}">User Info</title>
+</head>
+<body>
+<div class="row">
+  <aside class="col-md-4">
+	<section class="user_info">
+		<th:block th:if="${user}">
+		
+		<h1>
+			[[${user.name}]]
+		</h1>
+	    </th:block>
+	  
+	</section>
+	
+	<!-- Show total following, total follower -->
+	<section class="stats">
+	  <div class="stats" th:replace="~{shared/_stats :: copy(${user})}"></div>
+	</section>
+  </aside>
+   
+   <!-- Show button follow, unfollow -->
+  <div class="col-md-8">
+     
+    <h3>Microposts ([[${microposts.totalElements}]])</h3>
+    <div id="follow_form" th:replace="~{users/_follow_form :: copy(${user})}"></div>
+    
+    <ol class="microposts">
+    <th:block th:each="micropost : ${microposts.content}">
+      <li th:replace="~{microposts/_micropost :: copy(${micropost})}"></li>
+    </th:block>
+    </ol>
+    
+    <th:block th:if="${microposts.totalPages > 1}">
+    <div th:if="${microposts.totalPages > 1}" th:replace="~{shared/_pagination :: copy(${microposts}, '/users/'+${user.id})}"></div>
+    </th:block>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (user)">
+  <form th:action="@{/follow/{id}}" th:method="POST" id="_follow">
+      <input type="hidden" th:name="followedId" th:value="${user.id}"/>
+      <input type="submit" value="Follow" th:value="#{user.follow.submit}" class="btn btn-primary"/>
+      
+  </form>
+  <script>
+    $('#_follow').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var form = $(this);
+	  var followedId = $(this).find('input[name="followedId"]').val();
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data: {'followedId': followedId},
+		success : function(data, textStatus, xhr) {
+			$('#follow_form').html(data);
+		}
+      });
+    });
+  </script>
+</th:block>
+</body>
+</html>

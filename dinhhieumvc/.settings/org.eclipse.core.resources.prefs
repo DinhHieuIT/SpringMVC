@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//WebContent/html/search/_search_form.html=UTF-8
+encoding//WebContent/html/users/add.html=UTF-8
+encoding//src/dinhhieumvc/controller/UsersController.java=UTF-8
+encoding//src/dinhhieumvc/dao/imp/GenericDAOImp.java=UTF-8
+encoding//src/dinhhieumvc/model/BaseModel.java=UTF-8
+encoding//src/dinhhieumvc/service/imp/UserServiceImp.java=UTF-8
+encoding//src/dinhhieumvc/util/SearchQueryTemplate.java=UTF-8

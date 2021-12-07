@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+  <ul class="users">
+  <th:block th:fragment="copy (rating)">
+  
+    <li>
+      <a th:href="@{'/users/'+${rating.user.id}}" th:text="${rating.user.name}"></a>
+      <p>Rate Score</p>
+       <a th:text="${rating.rateScore}"></a>
+    </li>
+    
+    </th:block>
+  </ul>
+</body>
+</html>

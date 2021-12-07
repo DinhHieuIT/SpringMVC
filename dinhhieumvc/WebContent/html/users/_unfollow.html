@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (user)">
+  <form th:action="@{'/relationships/'+${user.id}}" th:method="DELETE" id="_unfollow">
+      <input type="submit" value="Unfollow" th:value="#{user.unfollow.submit}" class="btn btn-primary"/>
+  </form>
+  <script>
+    $('#_unfollow').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var form = $(this);
+	  $.ajax({
+		type : 'DELETE',
+		url : $(this).attr('action'),
+		success : function(data, textStatus, xhr) {
+			$('#follow_form').html(data);
+		}
+      });
+    });
+  </script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:replace="~{templates/layout :: layout(~{::title}, ~{::body}, ~{})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="#{user.new.title}">Sign up</title>
+</head>
+<body>		
+<h1 th:text="#{user.new.title}">Sign up</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+ 
+    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+	  
+	  <label>Name</label>
+	   <!--  <input type="text" th:name="name" th:value="user.name" class="form-control" />  -->
+	  <input type="text" th:field="*{name}" class="form-control" />
+	  <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect name</p>
+	  <label>Email</label>
+	  <input type="email" th:field="*{email}" class="form-control" />
+	  <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect email</p>
+	  <label>Password</label>
+	  <input type="password" th:field="*{password}" class="form-control" />
+	  <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</p>
+	  <label>Confirmation</label>
+	  <input type="password" th:field="*{confirmation}" class="form-control" />
+	   <p th:if="${#fields.hasErrors('confirmation')}" th:errors="*{confirmation}">Incorrect confirmation</p>
+	  <input type="submit" value="Register" th:attr="value=#{user.new.submit}" class="btn btn-primary"/>		
+	</form>
+  </div>
+</div>
+</body>
+</html>

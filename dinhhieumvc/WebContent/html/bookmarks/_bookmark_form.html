@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)" >
+<div  th:id="'bookmark-'+${micropost.id}">
+<th:block th:unless="${micropost.isBookmarkByCurrentUser()}">
+
+  <form th:action="@{'/microposts/'+${micropost.id}+'/bookmark'}" th:method="POST" >
+      <input type="hidden" name="star" th:value="micropost.user.id"/>
+      <input type="submit" value="Bookmark" class="btn btn-primary"/>
+      
+  </form>
+    
+  <script>
+    $('#bookmark-[[${micropost.id}]]').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		success : function(data, textStatus, xhr) {
+			$('#_bookmark-[[${micropost.id}]]').html(data); 
+		}
+      });
+    });
+  </script>
+  
+</th:block>
+
+
+ <th:block th:if="${micropost.isBookmarkByCurrentUser()}">
+  Bookmark Successfull
+  </th:block>
+  
+ </div>
+ </th:block>
+</body>
+</html>

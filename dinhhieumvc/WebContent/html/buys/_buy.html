@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+  <ul class="users">
+  <th:block th:fragment="copy (buy)">
+  
+    <li>
+      <a th:href="@{'/microposts/'+${buy.micropostId}}" th:text="${buy.micropost.content}"></a>
+      
+      <form th:action="@{'/buy/'+${buy.id}+'/add'}" th:method="POST" th:id="'buy-'+${buy.id}+'-add'" >
+        <input type="hidden" name="qty" value="1"/>
+        <input type="hidden" name="micropostId" th:value="${buy.micropostId}"/>
+        <input type="submit" value="+" class="btn btn-primary"/>
+      </form>
+  
+      <a  th:text="${buy.quantity}" th:id="'_buy-'+${buy.id}"></a>
+      
+      <form th:action="@{'/buy/'+${buy.id}+'/remove'}" th:method="POST" th:id="'buy-'+${buy.id}+'-remove'" >
+        <input type="hidden" name="qty" value="1"/>
+        <input type="hidden" name="micropostId" th:value="${buy.micropostId}"/>
+        <input type="submit" value="-" class="btn btn-primary"/>
+      </form>
+      
+    </li>
+    
+    <script>
+    $('#buy-[[${buy.id}]]-add').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var micropostId = $(this).find('input[name="micropostId"]').val();
+	  var qty = $(this).find('input[name="qty"]').val();
+	  
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data : {
+			micropostId : micropostId,
+			value : qty
+		},
+		success : function(data, textStatus, xhr) {
+			alert(JSON.parse(data).count);
+			$('#_buy-[[${buy.id}]]').html(JSON.parse(data).count); 
+			var total = 0;
+			$('a[id^="_buy"]').each(function() {
+				total = total + parseInt($(this).html());
+			});
+			$('#buy').html(total);
+		}
+      });
+    });
+  </script>
+  
+  <script>
+    $('#buy-[[${buy.id}]]-remove').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var micropostId = $(this).find('input[name="micropostId"]').val();
+	  var qty = $(this).find('input[name="qty"]').val();
+	  
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data : {
+			micropostId : micropostId,
+			value : qty
+		},
+		success : function(data, textStatus, xhr) {
+			alert(JSON.parse(data).count);
+			$('#_buy-[[${buy.id}]]').html(JSON.parse(data).count); 
+		}
+      });
+    });
+  </script>
+  </th:block>
+  </ul>
+  
+</body>
+</html>

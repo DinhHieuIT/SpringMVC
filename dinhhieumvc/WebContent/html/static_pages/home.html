@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- Import layout của trang web vào -->
+<html th:replace="~{templates/layout :: layout(~{::title}, ~{::body}, ~{})}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title th:text="#{home.title}">Home</title>
+</head>
+<body>
+
+<th:block th:if="${#request.getSession().getAttribute('user') != null}">
+
+<div class="row">
+
+  <aside class="col-md-4">
+    <section class="user_info" th:insert="~{shared/_user_info :: copy}"></section>
+    
+    <section class="micropost_form">
+      <form th:replace="~{shared/_micropost_form :: copy(${micropost})}"></form>
+    </section>
+  </aside>
+  
+  <div class="col-md-8">
+    <h3 th:text="#{home.feed}">Micropost Feed</h3>
+    <div th:replace="~{shared/_feed_micropost :: copy(${microposts})}"></div>
+  </div>
+</div>
+
+</th:block>
+
+<th:block th:if="${#request.getSession().getAttribute('user') == null}">
+<div class="center jumbotron">
+  <h1 th:text="#{home.welcome}">Home</h1>
+  <h2>
+    This is the home page for the
+    <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html" target="_blank">Spring MVC Tutorial</a> sample application.
+  </h2>
+  <a th:href="@{/signup}" th:text="#{home.signup}" class="btn btn-lg btn-primary">Sign up now!</a>
+</div>
+</th:block>
+  <script>
+  
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      //testAPI();  
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '218584123136185',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v3.2'           // Use this Graph API version for this call.
+    });
+    
+    FB.AppEvents.logPageView();
+    
+   // getLoginStatus();
+
+
+    //FB.getLoginStatus(function(response) {
+    //    if (response.status === 'connected') {
+    //        //display user data
+    //        getFbUserData();
+    //    }
+    //	});
+  };
+  
+  function fbLogin() {
+	    FB.login(function (response) {
+	        if (response.authResponse) {
+	            // Get and display the user profile data
+	           testAPI();
+	        } else {
+	            document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
+	        }
+	    }, {scope: 'email'});
+	}
+  
+  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+  
+  $('<div />').attr('id','fb-root').appendTo('body');
+ 
+  function testAPI() { // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+      var name = response.name;
+      var uid = response.id;
+      console.log(uid);
+      $.ajax({
+  		type : 'POST',
+  		url : '[[@{/accountFacebook}]]',
+  		data: {
+  			'uid': uid,
+  			'name': name,
+  		},
+  		success: function(data) {
+  			location.href = '[[@{/home}]]';
+  		}
+        });
+    });
+  }
+  
+  function getLoginStatus() {
+	    FB.getLoginStatus(function(response) {
+	        if (response.status === 'connected') {
+	            $('#fb-root').trigger('facebook:init',[response]);
+	        } else if (response.status === 'not_authorized') {
+	            $('#fb-root').trigger('facebook:init',[response]);
+	        } else {
+	            $('#fb-root').trigger('facebook:init',[response]);
+	        }
+	    });
+	}
+
+</script>
+
+
+<!-- The JS SDK Login Button -->
+<th:block th:fragment="copy (login)">
+   <button  onclick="fbLogin()">
+     Signup by Facebook
+   </button>
+</th:block>
+
+<div id="status">
+</div>
+
+<!-- Load the JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+
+
+</body>
+</html>

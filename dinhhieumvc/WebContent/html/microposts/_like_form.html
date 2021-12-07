@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)">
+
+<div id="like_form" >
+
+  <th:block th:unless="${micropost.isLikeByCurrentUser()}">
+  <form th:replace="~{microposts/_like :: copy(${micropost})}"></form>
+  </th:block>
+ 
+  <th:block th:if="${micropost.isLikeByCurrentUser()}">
+  Liked
+  </th:block>
+
+</div>
+
+</th:block>
+</body>
+</html>

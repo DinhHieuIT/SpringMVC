@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)">
+  <form th:action="@{'/microposts/'+${micropost.id}+'/rating'}" th:method="POST" th:id="'rating-'+${micropost.id}" >
+      <input type="radio" name="star" value="1"/>
+      <input type="radio" name="star" value="2"/>
+      <input type="radio" name="star" value="3"/>
+      <input type="radio" name="star" value="4"/>
+      <input type="radio" name="star" value="5"/>
+      <input type="submit" width = 10px value="Rating" class="btn btn-primary"/>
+      
+  </form>
+
+ <th:block>
+<li><a th:href="@{'/microposts/'+${micropost.id}+'/users/rating'}" th:id="'ratingList-'+${micropost.id}">Total Rating</a></li>
+</th:block>
+ 
+  <script>
+    $('#rating-[[${micropost.id}]]').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var star = $(this).find('input[name="star"]:checked').val();
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data: {'star': star},
+		success : function(data, textStatus, xhr) {
+			$('#_rating-[[${micropost.id}]]').html(data); 
+		}
+      });
+    });
+  </script>
+
+   <script>
+    $('#ratingList-[[${micropost.id}]]').click(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  $.ajax({
+		type : 'GET',
+		url : $(this).attr('href'),
+		success : function(data, textStatus, xhr) {
+			$(data).appendTo('body').modal();
+			$('#ratingList-[[${micropost.id}]]').parent().append(data);
+			//$('#ratingList-[[${micropost.id}]]').html(data);
+		}
+      });
+    });
+  </script>
+
+</th:block>
+</body>
+</html>

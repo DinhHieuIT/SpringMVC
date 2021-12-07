@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+   
+   	<!-- Để inject đối tượng userDAO vào userService chúng ta khai báo như sau 
+   	qualifier là để phân biệt đối tượng nào được inject vào bằng ký hiệu @Qualifier trên đối tượng đó
+   	 -->
+   	<bean id="userService" class="dinhhieumvc.service.imp.UserServiceImp">
+		<qualifier value="userService"/>
+    	<property name="userDAO" ref="userDAO" />
+    </bean>
+    
+     <bean id="micropostService" class="dinhhieumvc.service.imp.MicropostServiceImp">
+		<qualifier value="micropostService"/>
+    	<property name="micropostDAO" ref="micropostDAO" />
+    </bean>
+    
+     <bean id="commentService" class="dinhhieumvc.service.imp.CommentServiceImp">
+		<qualifier value="commentService"/>
+    	<property name="commentDAO" ref="commentDAO" />
+    </bean>
+    
+     <bean id="ratingService" class="dinhhieumvc.service.imp.RatingServiceImp">
+		<qualifier value="ratingService"/>
+    	<property name="ratingDAO" ref="ratingDAO" />
+    </bean>
+    
+     <bean id="bookmarkService" class="dinhhieumvc.service.imp.BookmarkServiceImp">
+		<qualifier value="bookmarkService"/>
+    	<property name="bookmarkDAO" ref="bookmarkDAO" />
+    </bean>
+    
+    <bean id="likeService" class="dinhhieumvc.service.imp.LikeServiceImp">
+		<qualifier value="likeService"/>
+    	<property name="likeDAO" ref="likeDAO" />
+    </bean>
+    
+     <bean id="buyService" class="dinhhieumvc.service.imp.BuyServiceImp">
+		<qualifier value="buyService"/>
+    	<property name="buyDAO" ref="buyDAO" />
+    </bean>
+    
+    <bean id="searchmicropostService" class="dinhhieumvc.service.imp.SearchMicropostServiceImp">
+		<qualifier value="searchmicropostService"/>
+    	<property name="searchmicropostDAO" ref="searchmicropostDAO" />
+    </bean>
+   
+
+</beans>

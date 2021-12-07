@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+  <ul class="users">
+  <th:block th:fragment="copy (user)">
+  
+    <li th:id="'user-'+${user.id}" >
+      <a th:href="@{'/users/'+${user.id}}" th:text="${user.name}"></a>
+       <a class="delete-user" th:href="@{'/users/'+${user.id}}" th:attr="'data-id'=${user.id}" >Delete</a>
+    </li>
+    
+    </th:block>
+  </ul>
+</body>
+</html>

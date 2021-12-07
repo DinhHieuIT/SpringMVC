@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)">
+      <input type="text" id="search" placeholder="Search" class="textbox" name="key-search">
+      <p id="search-description"></p>
+      <input type="hidden" id="search-id">
+ 
+  <script>
+  $( "#search" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          url: '[[@{/search}]]',
+          dataType: "json",
+          contentType: "application/json",
+          data: {
+        	  term: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        } );
+      },
+      
+      minLength: 2,
+     
+    } )
+     .autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<div>" + "<a href='[[@{/microposts/}]]" + item.id+ "'>" + item.content + "</a>" + "</div>" )
+        .appendTo( ul );
+    };
+
+</script>
+</th:block>
+</body>
+</html>

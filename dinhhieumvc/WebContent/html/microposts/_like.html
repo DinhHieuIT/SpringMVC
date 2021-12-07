@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)">
+  <form th:action="@{'/microposts/'+${micropost.id}+'/like'}" th:method="POST" id="_like">
+      <input type="hidden" th:name="micropostId" th:value="${micropost.id}"/>
+      <input type="submit" value="Like" th:value="#{user.like.submit}" class="btn btn-primary"/>
+      
+  </form>
+  <script>
+    $('#_like').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var form = $(this);
+	  var micropostId = $(this).find('input[name="micropostId"]').val();
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data: {'micropostId': micropostId},
+		success : function(data, textStatus, xhr) {
+			$('#like_form').html();
+			
+		}
+      });
+    });
+  </script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<html th:fragment="layout (title, content, links)" 
+  xmlns:th="http://www.thymeleaf.org" 
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title th:replace="${title}">[[#{meta.title}]]</title>
+  <meta name="description" th:attr="content=#{meta.description}" />
+  <meta name="keywords" th:attr="content=#{meta.keywords}" />
+  <!-- <sec:csrfMetaTags ></sec:csrfMetaTags> -->
+	<!-- default header name is X-CSRF-TOKEN -->
+	
+  <!-- Common styles and scripts -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap-theme.min.css}">
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"></link>
+  <link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/custom.css}">
+  <link rel="stylesheet" th:href="@{/webjars/jquery-modal/0.9.1/jquery.modal.min.css}"></link>
+  <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/js/custom.js}"></script>
+  <script th:src="@{/webjars/jquery-modal/0.9.1/jquery.modal.min.js}"></script>
+  <link rel="shortcut icon" th:href="@{/resources/img/favicon.ico}">
+
+  <th:block th:replace="${links}" />
+</head>
+<body>
+  <!-- Copy file header.html vào header -->
+  <header th:replace="templates/_header :: copy"></header>     
+  <div class="container">
+    <div th:replace="${content}">
+        <p>Layout content</p>
+    </div>
+   <!-- Copy file footer.html vào header -->
+    <footer th:replace="templates/_footer :: copy"></footer> 
+  </div>  
+</body>
+</html>

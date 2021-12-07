@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+  <header th:fragment="copy" class="navbar navbar-fixed-top navbar-inverse">
+    
+	<div class="container">
+		<a id="logo" th:text="#{application.logo}">Sample App</a>
+		<nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a th:href="@{/home}" th:text="#{header.home}">Home</a></li>
+				<li><a th:text="#{header.help}">Help</a></li>
+				<th:block th:if="${#request.getSession().getAttribute('user') == null}">
+				<li><a th:href="@{/login}" th:text="#{header.login}">Log in</a></li>
+				</th:block>
+				
+				<th:block th:if="${#request.getSession().getAttribute('user') != null}">
+				<li><a th:href="@{'/bookmarks'}">Bookmarks</a></li>
+	            <li><a th:href="@{'/carts'}">CartTotal</a></li>
+				<li><a th:href="@{/users}">Users</a></li>
+				
+				<li class="dropdown" th:with="user=${#request.getSession().getAttribute('user')}">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					    <span th:text="${user.name}">Account</span>
+					    <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a>Profile</a></li>
+						<li><a th:href="@{'/users/'+${user.id}+'/edit'}">Settings</a></li>
+						<li class="divider"></li>
+						<li><a>Sign Out</a></li>
+					</ul>
+				</li>
+				 <div th:replace="~{search/_search_form :: copy(${microposts})}" id="_search"></div>
+				 <!-- Luu y thu muc search -->
+				</th:block>
+			</ul>
+		</nav>
+	</div>
+  </header>
+</body>
+</html>

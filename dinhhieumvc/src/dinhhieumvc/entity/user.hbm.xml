@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 5.3//EN"  
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <!-- "classpath://org/hibernate/hibernate-configuration-3.0.dtd" --> 
+  
+<hibernate-mapping>  
+	<class name="dinhhieumvc.entity.User" table="user">  
+    	<id name="id" column="id" type="int"> 
+     		<generator class="native"></generator>  
+    	</id>  
+        <property name="uid" column="uid" type="string"></property> 
+    	<property name="name" column="name" type="string"></property>
+    	<property name="email" column="email" type="string" unique="true"></property>
+    	<property name="password" column="password" type="string" length="128"></property>
+    	<property name="series" column="series" type="string"></property>
+    	<property name="token" column="token" type="string"></property>
+    	<property name="lastUsed" column="last_used" type="java.util.Date"></property>
+    	<property name="role" column="role" type="int"></property>
+    	<property name="updatedAt" column="updated_at" type="java.util.Date"></property>
+    	<property name="createdAt" column="created_at" type="java.util.Date"></property>
+    	
+    	<list name="microposts" cascade="all" lazy="true" inverse="true" fetch="select">
+	    	<key column="user_id"/>
+	    	<list-index column="id" base="1"/>
+	    	<one-to-many class="dinhhieumvc.entity.Micropost"/>
+	    </list>
+	    
+	    <list name="activeRelationships" cascade="all" lazy="true" inverse="true" fetch="select">
+	    	<key column="follower_id"/>
+	    	<list-index column="id" base="1"/>
+	    	<one-to-many class="dinhhieumvc.entity.Relationship"/>
+	    </list>
+	    
+	    <list name="passiveRelationships" cascade="all" lazy="true" inverse="true" fetch="select">
+	    	<key column="followed_id"/>
+	    	<list-index column="id" base="1"/>
+	    	<one-to-many class="dinhhieumvc.entity.Relationship"/>
+	    </list>
+	    
+	    <bag name="following" table="relationship" inverse="true" lazy="true" fetch="select">
+		    <key column="follower_id"/>
+		    <many-to-many entity-name="dinhhieumvc.entity.User">
+		        <column name="followed_id" not-null="true"/>
+		    </many-to-many>
+		</bag>
+		
+		<bag name="followers" table="relationship" inverse="true" lazy="true" fetch="select">
+		    <key column="followed_id"/>
+		    <many-to-many entity-name="dinhhieumvc.entity.User">
+		        <column name="follower_id" not-null="true"/>
+		    </many-to-many>
+		</bag>
+	
+  </class>  
+            
+</hibernate-mapping>  

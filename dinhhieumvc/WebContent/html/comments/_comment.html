@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+  <th:block th:fragment="copy (comment)">
+  
+   <li th:id="'comment-'+${comment.id}">
+   
+     <span class="user"><a th:href="@{'/users/'+${comment.userId}}" th:text="${comment.user.name}">User Name</a></span>
+     <span class="content" th:text="${comment.content}">Content</span>
+     <span class="timestamp">[[${comment.createdAt}]].</span>
+     
+  </li>
+  
+  </th:block>
+</body>
+</html>

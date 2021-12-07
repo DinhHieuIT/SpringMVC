@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+  <!-- Inject đối tượng thuộc class HibernateTemplate vào trong đối tượng thuộc lớp UserDAOImp-->
+   <bean id="userDAO" class="dinhhieumvc.dao.imp.UserDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+    <bean id="micropostDAO" class="dinhhieumvc.dao.imp.MicropostDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+    <bean id="relationshipDAO" class="dinhhieumvc.dao.imp.RelationshipDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+    <bean id="commentDAO" class="dinhhieumvc.dao.imp.CommentDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+   <bean id="ratingDAO" class="dinhhieumvc.dao.imp.RatingDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+   <bean id="bookmarkDAO" class="dinhhieumvc.dao.imp.BookmarkDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+   <bean id="likeDAO" class="dinhhieumvc.dao.imp.LikeDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+   <bean id="buyDAO" class="dinhhieumvc.dao.imp.BuyDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+   
+    
+   <bean id="searchmicropostDAO" class="dinhhieumvc.dao.imp.SearchMicropostDAOImp">
+      <property name="hibernateTemplate" ref="hibernateTemplate" />
+   </bean>
+
+</beans>

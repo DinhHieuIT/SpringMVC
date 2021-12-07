@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+<th:block th:fragment="copy (micropost)">
+  <form th:action="@{'/microposts/'+${micropost.id}+'/buy'}" th:method="POST" 
+  th:id="'buy-'+${micropost.id}" >
+      <input type="hidden" name="qty" value="1"/>
+      <input type="hidden" name="micropostId" th:value="${micropost.id}"/>
+      <input type="submit" value="AddToCart" class="btn btn-primary"/>
+      
+  </form>
+    
+  <script>
+    $('#buy-[[${micropost.id}]]').submit(function(event) {
+	  event.preventDefault();
+	  event.stopPropagation();
+	  var micropostId = $(this).find('input[name="micropostId"]').val();
+	  var qty = $(this).find('input[name="qty"]').val();
+	  
+	  $.ajax({
+		type : 'POST',
+		url : $(this).attr('action'),
+		data : {
+			micropostId : micropostId,
+			value : qty
+		},
+		success : function(data, textStatus, xhr) {
+			alert(JSON.parse(data).count);
+		}
+      });
+    });
+  </script>
+  
+</th:block>
+</body>
+</html>
