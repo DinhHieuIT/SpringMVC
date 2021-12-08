@@ -26,7 +26,7 @@ import dinhhieumvc.service.MicropostService;
 @EnableWebMvc
 public class BookmarkController {
 	
-	
+	//Đây là dự án springmvc lúc học ở awesome academy
 	@Autowired
 	@Qualifier("micropostService")
 	MicropostService micropostService;
