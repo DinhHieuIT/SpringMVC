@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  
+  <bean id="passwifi" class="dinhhieu.applicationcontext.GuestPass">
+    <property name="name" value="guest" />
+    <property name="password" value="1234" />
+  </bean>
+  
+   <bean id = "school" class = "dinhhieu.DIObject.School" >
+      <property name = "name" value = "Ha Noi University"/>
+      <property name = "address" value = "Ha Noi city"/>
+   </bean>
+   
+   <bean id = "teacher1" class = "dinhhieu.DIObject.Teacher" >
+      <property name = "name" value = "Nguyen Hoang Duong"/>
+      <property name = "age" value = "30"/>
+      <property name = "subject" value = "Mechanical"/>
+   </bean>
+   
+    <bean id = "teacher2" class = "dinhhieu.DIObject.Teacher" >
+      <constructor-arg name ="name" value = "Nguyen Thu Huong" type="String"></constructor-arg>
+      <constructor-arg name ="age" value = "40" type="String"></constructor-arg>
+      <constructor-arg name ="subject" value = "Information" type="String"></constructor-arg>
+   </bean>
+  
+  
+  
+</beans>
