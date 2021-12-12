@@ -8,23 +8,69 @@
     <property name="password" value="1234" />
   </bean>
   
-   <bean id = "school" class = "dinhhieu.DIObject.School" >
+   <bean id = "school" class = "dinhhieu.DIObject1.School" >
       <property name = "name" value = "Ha Noi University"/>
       <property name = "address" value = "Ha Noi city"/>
    </bean>
    
-   <bean id = "teacher1" class = "dinhhieu.DIObject.Teacher" >
+    <bean id = "school1" class = "dinhhieu.DIObject2.School" >
+      <property name = "name" value = "Havard University"/>
+      <property name = "address" value = "NewYork city"/>
+      <property name = "teachers">
+       <list>
+        <ref bean="teacher3" />
+        <ref bean="teacher4" />
+      </list>
+      </property>
+   </bean>
+   
+    <bean id = "school2" class = "dinhhieu.DIObject2.School" >
+      <property name = "name" value = "Michigan University"/>
+      <property name = "address" value = "Michigan city"/>
+       <property name = "teachers">
+       <list>
+        <ref bean="teacher5" />
+        <ref bean="teacher6" />
+      </list>
+      </property>
+   </bean>
+   
+   <bean id = "teacher1" class = "dinhhieu.DIObject1.Teacher" >
       <property name = "name" value = "Nguyen Hoang Duong"/>
       <property name = "age" value = "30"/>
       <property name = "subject" value = "Mechanical"/>
+      <property name = "school" ref = "school"/>
    </bean>
    
-    <bean id = "teacher2" class = "dinhhieu.DIObject.Teacher" >
+    <bean id = "teacher2" class = "dinhhieu.DIObject1.Teacher" >
       <constructor-arg name ="name" value = "Nguyen Thu Huong" type="String"></constructor-arg>
       <constructor-arg name ="age" value = "40" type="String"></constructor-arg>
       <constructor-arg name ="subject" value = "Information" type="String"></constructor-arg>
+      <constructor-arg name = "school" ref = "school"/>
    </bean>
-  
-  
-  
+   
+   <bean id = "teacher3" class = "dinhhieu.DIObject2.Teacher" >
+      <property name = "name" value = "Vu Duy Hieu"/>
+      <property name = "age" value = "45"/>
+      <property name = "subject" value = "Construction"/>
+   </bean>
+   
+    <bean id = "teacher4" class = "dinhhieu.DIObject2.Teacher" >
+      <constructor-arg name ="name" value = "Hoang Thi Thuong" type="String"></constructor-arg>
+      <constructor-arg name ="age" value = "35" type="String"></constructor-arg>
+      <constructor-arg name ="subject" value = "Information" type="String"></constructor-arg>
+   </bean>
+   
+   <bean id = "teacher5" class = "dinhhieu.DIObject2.Teacher" >
+      <property name = "name" value = "Truong Van Hoang"/>
+      <property name = "age" value = "38"/>
+      <property name = "subject" value = "Physis"/>
+   </bean>
+   
+    <bean id = "teacher6" class = "dinhhieu.DIObject2.Teacher" >
+      <constructor-arg name ="name" value = "Nguyen Thi Hoai" type="String"></constructor-arg>
+      <constructor-arg name ="age" value = "33" type="String"></constructor-arg>
+      <constructor-arg name ="subject" value = "Information" type="String"></constructor-arg>
+   </bean>
+
 </beans>

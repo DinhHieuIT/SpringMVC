@@ -1,10 +1,10 @@
-package dinhhieu.DIObject;
+package dinhhieu.DIObject2;
 
 public class Teacher {
 	
-	public String name;
-	public String age;
-	public String subject;
+	private String name;
+	private String age;
+	private String subject;
 	
 	public Teacher() {
 		
@@ -41,10 +41,8 @@ public class Teacher {
 		this.subject = subject;
 	}
 
-	public void show() {
-		System.out.println("Teacher [name=" + name + ", age=" + age + ", subject=" + subject + "]"); 
+	@Override
+	public String toString() {
+		return "Teacher [name=" + name + ", age=" + age + ", subject=" + subject + "]";
 	}
-	
-	
-
 }
