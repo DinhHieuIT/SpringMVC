@@ -1,1 +1,9 @@
 Dự án Website thương mại điện tử sử dụng Spring MVC + Thymeleaf + Mysql
+Các chức năng cơ bản trong dự án như :
+ - Đăng ký, Đăng nhập sử dụng Spring Security
+ - Hiện danh sách các sản phẩm có phân trang đính kèm hình ảnh.
+ - Bookmark và hiện danh sách bookmark
+ - Chức năng addToCart hiện danh sách giỏ hàng đã đặt hàng
+ - Chức năng comment các sản phẩm
+ - Chức năng like, rating, follow, unfollow, search.
+ 
